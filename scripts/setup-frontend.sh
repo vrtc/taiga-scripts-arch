@@ -1,5 +1,7 @@
 #!/bin/bash
 
+FRONTEND_VERSION="1.1.2"
+
 pushd ~
 
 cat > /tmp/main.json <<EOF
@@ -9,18 +11,20 @@ cat > /tmp/main.json <<EOF
     "debug": "true",
     "publicRegisterEnabled": true,
     "privacyPolicyUrl": null,
-    "termsOfServiceUrl": null
+    "termsOfServiceUrl": null,
+    "maxUploadFileSize": null
 }
 EOF
 
 
-if [ ! -e ~/.setup/taiga-front ]; then
+if [ ! -e ~/taiga-front ]; then
     # Initial clear
-    rm -rf taiga-front
-
     git clone https://github.com/taigaio/taiga-front.git taiga-front
     pushd ~/taiga-front
-    git checkout -f 1.1.1
+    git checkout -f $FRONTEND_VERSION
+
+    rm -rf ~/.npm
+    npm cache clear
 
     gem-install-if-needed sass scss-lint
     npm-install-if-needed gulp bower
@@ -35,8 +39,19 @@ if [ ! -e ~/.setup/taiga-front ]; then
     bower install
     gulp deploy
     popd
+else
+    pushd ~/taiga-front
+    git fetch
+    git reset --hard
+    git checkout -f $FRONTEND_VERSION
 
-    touch ~/.setup/taiga-front
+    rm -rf ~/.npm
+    npm cache clear
+
+    npm install
+    bower install
+    gulp deploy
+    popd
 fi
 
 popd

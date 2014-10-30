@@ -1,5 +1,7 @@
 #!/bin/bash
 
+BACKEND_VERSION="1.1.1"
+
 pushd ~
 
 cat > /tmp/settings.py <<EOF
@@ -29,15 +31,12 @@ REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = (
 )
 EOF
 
-if [ ! -e ~/.setup/taiga-back ]; then
-    # Initial clean
-    rm -rf taiga-back
-    dropdb-if-needed taiga
-
-    git clone https://github.com/taigaio/taiga-back.git taiga-back
-    pushd ~/taiga-back
-    git checkout -f 1.1.0
+if [ ! -e ~/taiga-back ]; then
     createdb-if-needed taiga
+    git clone https://github.com/taigaio/taiga-back.git taiga-back
+
+    pushd ~/taiga-back
+    git checkout -f $BACKEND_VERSION
 
     # rabbit-create-user-if-needed taiga taiga  # username, password
     # rabbit-create-vhost-if-needed taiga
@@ -57,7 +56,16 @@ if [ ! -e ~/.setup/taiga-back ]; then
 
     deactivate
     popd
-    touch ~/.setup/taiga-back
+else
+    pushd ~/taiga-back
+    git fetch
+    git reset --hard
+    git checkout -f $BACKEND_VERSION
+
+    workon taiga
+    pip install -r requirements.txt
+    python manage.py migrate --noinput
+    sudo service circus start
 fi
 
 popd
