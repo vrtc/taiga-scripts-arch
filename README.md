@@ -15,10 +15,12 @@ http://taigaio.github.io/taiga-doc/dist/setup-alternatives.html#setup-taiga-scri
 
 ## Additional Info ##
 
-Initialize PostgreSQL
+Initialize PostgreSQL  
+    
     initdb --locale en_US.UTF-8 -E UTF8 -D '/var/lib/postgres/data'
 
 Start postgresql: 
+
     sudo systemctl enable postgresql && sudo systemctl start postgresql
 
 and maybe read this [Arch Linux - PostgreSQL](https://wiki.archlinux.org/index.php/PostgreSQL)
