@@ -13,8 +13,7 @@ function dropdb-if-needed {
 }
 
 if [ ! -e ~/.setup/postgresql ]; then
-    apt-install-if-needed postgresql-9.3 postgresql-contrib-9.3 \
-        postgresql-doc-9.3 postgresql-server-dev-9.3
+    pacman-install-if-needed postgresql postgresql-docs postgresql-libs
 
     sudo -u postgres createuser --superuser $USER &> /dev/null
     sudo -u postgres createdb $USER &> /dev/null

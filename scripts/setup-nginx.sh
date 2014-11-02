@@ -77,7 +77,7 @@ server {
 }
 EOF
 
-apt-install-if-needed nginx-full
+pacman-install-if-needed nginx
 
 if [ ! -e ~/.setup/nginx ]; then
     sudo mv /tmp/nginx.conf /etc/nginx/nginx.conf

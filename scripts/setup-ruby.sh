@@ -23,5 +23,5 @@ cat > ~/.ruby-conf.sh <<EOF
 export PATH=/home/$USER/.gem/ruby/1.9.1/bin:\$PATH
 EOF
 
-apt-install-if-needed ruby
+pacman-install-if-needed ruby
 source ~/.ruby-conf.sh

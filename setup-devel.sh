@@ -9,7 +9,7 @@ popd
 # Bootstrap
 source ./scripts/setup-vars.sh
 source ./scripts/setup-config.sh
-source ./scripts/setup-apt.sh
+source ./scripts/setup-pacman.sh
 
 # Setup and install services dependencies
 source ./scripts/setup-postgresql.sh

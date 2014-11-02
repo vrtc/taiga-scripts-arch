@@ -1,4 +1,4 @@
-# Taiga Bootstrap Scripts #
+# Taiga Bootstrap Scripts (for Arch Linux) #
 
 Scripts for initial deploy of taiga services.
 
@@ -12,6 +12,16 @@ It installs:
 ## Documentation ##
 
 http://taigaio.github.io/taiga-doc/dist/setup-alternatives.html#setup-taiga-scripts
+
+## Additional Info ##
+
+Initialize PostgreSQL
+    initdb --locale en_US.UTF-8 -E UTF8 -D '/var/lib/postgres/data'
+
+Start postgresql: 
+    sudo systemctl enable postgresql && sudo systemctl start postgresql
+
+and maybe read this [Arch Linux - PostgreSQL](https://wiki.archlinux.org/index.php/PostgreSQL)
 
 ## Community ##
 

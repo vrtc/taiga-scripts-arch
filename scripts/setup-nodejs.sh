@@ -1,8 +1,8 @@
 #!/bin/bash
 
-apt-install-if-needed nodejs npm
+pacman-install-if-needed nodejs 
 
-nodejspath=$(which nodejs)
+nodejspath=$(which node)
 sudo ln -sf $nodejspath ${nodejspath::-2}
 
 function npm-install {
