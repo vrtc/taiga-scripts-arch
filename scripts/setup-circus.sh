@@ -37,11 +37,12 @@ exec /usr/local/bin/circusd /home/$USER/conf/circus.ini
 EOF
 
 if [ ! -e ~/.setup/circus ]; then
-    sudo pip2 install circus
+    sudo pip3 install circus
 
     mv /tmp/circus.ini /home/$USER/conf/circus.ini
     sudo mv /tmp/circus.conf /etc/init/circus.conf
 
-    sudo service circus start
+    sudo systemctl enable circus
+    sudo systemctl start circus
     touch ~/.setup/circus
 fi

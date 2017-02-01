@@ -80,9 +80,9 @@ EOF
 pacman-install-if-needed nginx
 
 if [ ! -e ~/.setup/nginx ]; then
-    sudo mv /tmp/nginx.conf /etc/nginx/nginx.conf
-    sudo mv /tmp/taiga.conf /etc/nginx/sites-available/default
-    sudo /etc/init.d/nginx restart
+    sudo mv /tmp/nginx.conf /etc/nginx/nginx.conf.taiga.exemple
+    sudo mv /tmp/taiga.conf /etc/nginx/vhosts/taiga.conf
+    sudo sudo systemctl restart nginx
 
     touch ~/.setup/nginx
 fi
