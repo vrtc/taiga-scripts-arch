@@ -36,7 +36,7 @@ if [ ! -e ~/.setup/taiga-back ]; then
 
     git clone https://github.com/taigaio/taiga-back.git taiga-back
     pushd ~/taiga-back
-    git checkout -f 1.1.0
+    git checkout -f stable
     createdb-if-needed taiga
 
     # rabbit-create-user-if-needed taiga taiga  # username, password
@@ -50,6 +50,8 @@ if [ ! -e ~/.setup/taiga-back ]; then
 
     pip install -r requirements.txt
     python manage.py migrate --noinput
+    python manage.py compilemessages
+    python manage.py collectstatic --noinput
     python manage.py loaddata initial_user
     python manage.py loaddata initial_project_templates
     python manage.py loaddata initial_role
